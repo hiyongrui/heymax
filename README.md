@@ -15,17 +15,16 @@ cd server
 npm run dev
 ```
 
-# run sql script
-## found in setup.sql
+# run sql script (from setup.sql)
 ### which will create database heymax in MYSQL
-#### database configuration of user and password (i used root for mine computer) set in server/server.js
+#### - database configuration of user and password (i used root for mine computer) set in server/server.js
 
 
 ### manage to do
 by clicking on user/admin button on home page (setting user data through localStorage), will lead to the respective pages
 1) user page - can view catalog of items, add to cart, checkout
 2) admin page - add new item, change price, quantity (edit), remove item
-Inventory Management: Keep track of inventory for each item and prevent users from
+3) Inventory Management: Keep track of inventory for each item and prevent users from
 adding more of an item to their cart than is available in inventory
 
 ### did not manage to do
