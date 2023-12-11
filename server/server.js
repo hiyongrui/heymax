@@ -18,6 +18,15 @@ app.use(cors())
 
 
 // API
+app.get('/getAllUser', (req, res) => {
+    let sql = 'SELECT * FROM user';
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
+});
+
+
 app.get('/getAllProduct', (req, res) => {
     let sql = 'SELECT * FROM product';
     db.query(sql, (err, result) => {
@@ -26,9 +35,10 @@ app.get('/getAllProduct', (req, res) => {
     });
 });
 
-app.get('/getAllUser', (req, res) => {
-    let sql = 'SELECT * FROM user';
-    db.query(sql, (err, result) => {
+//get one product
+app.get('/getProduct/:id', (req, res) => {
+    let sql = 'SELECT * FROM product WHERE productID = ?';
+    db.query(sql, [req.params.id], (err, result) => {
       if (err) throw err;
       res.status(200).json(result);
     });
@@ -48,7 +58,14 @@ app.delete('/deleteProduct/:id', (req, res) => {
       if (err) throw err;
       res.status(200).json(result);
     });
+});
 
+app.put('/updateProduct/:id', (req, res) => {
+    let sql = 'UPDATE product SET name = ?, description = ?, price = ? WHERE productID = ?';
+    db.query(sql, [req.body.name, req.body.description, req.body.price, req.params.id], (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
 });
 
 app.listen(8000,()=>{

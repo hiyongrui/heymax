@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Fab, Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import { useEffect, useState } from "react";
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -35,6 +36,10 @@ const Admin = () => {
       });
   };
 
+  const handleEdit = (id) => {
+    navigate(`/updateProduct/${id}`);
+  };
+
   return (
     <Box>
       <Box textAlign="center">
@@ -55,7 +60,7 @@ const Admin = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => handleEdit(product.productID)}>
                   Edit
                 </Button>
                 <Button size="small" color="secondary" onClick={() => handleDelete(product.productID)}>
