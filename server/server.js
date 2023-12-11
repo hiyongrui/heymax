@@ -42,6 +42,15 @@ app.post('/addProduct', (req, res) => {
     });
 });
 
+app.delete('/deleteProduct/:id', (req, res) => {
+    let sql = 'DELETE FROM product WHERE productID = ?';
+    db.query(sql, [req.params.id], (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
+
+});
+
 app.listen(8000,()=>{
     console.log("Connect to backend port 8000.")
 })

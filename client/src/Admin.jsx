@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Fab, Box, Typography, Card, CardContent } from "@mui/material";
+import { Fab, Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import { useEffect, useState } from "react";
 
@@ -21,6 +21,20 @@ const Admin = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    fetch(`http://localhost:8000/deleteProduct/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        fetchProducts();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <Box>
       <Box textAlign="center">
@@ -30,7 +44,7 @@ const Admin = () => {
 
         <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           {products.map((product) => (
-            <Card key={product.id} sx={{ minWidth: 275, margin: 2 }}>
+            <Card key={product.productID} sx={{ minWidth: 275, margin: 2 }}>
               <CardContent>
                 <Typography variant="h5">{product.name}</Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -40,6 +54,14 @@ const Admin = () => {
                   Price: ${product.price}
                 </Typography>
               </CardContent>
+              <CardActions>
+                <Button size="small" color="primary">
+                  Edit
+                </Button>
+                <Button size="small" color="secondary" onClick={() => handleDelete(product.productID)}>
+                  Delete
+                </Button>
+              </CardActions>
             </Card>
           ))}
         </Box>
