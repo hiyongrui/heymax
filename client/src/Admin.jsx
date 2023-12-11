@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Fab, Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import { useEffect, useState } from "react";
+import { red } from "@mui/material/colors";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -56,6 +57,9 @@ const Admin = () => {
                   {product.description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
+                  Quantity: {product.quantity}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
                   Price: ${product.price}
                 </Typography>
               </CardContent>
@@ -63,7 +67,7 @@ const Admin = () => {
                 <Button size="small" color="primary" onClick={() => handleEdit(product.productID)}>
                   Edit
                 </Button>
-                <Button size="small" color="secondary" onClick={() => handleDelete(product.productID)}>
+                <Button size="small" sx={{ color: red[500] }} onClick={() => handleDelete(product.productID)}>
                   Delete
                 </Button>
               </CardActions>

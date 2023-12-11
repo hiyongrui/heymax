@@ -45,8 +45,8 @@ app.get('/getProduct/:id', (req, res) => {
 });
 
 app.post('/addProduct', (req, res) => {
-    let sql = 'INSERT INTO product (name, description, price) VALUES (?, ?, ?)';
-    db.query(sql, [req.body.name, req.body.description, req.body.price], (err, result) => {
+    let sql = 'INSERT INTO product (name, description, price, quantity) VALUES (?, ?, ?, ?)';
+    db.query(sql, [req.body.name, req.body.description, req.body.price, req.body.quantity], (err, result) => {
       if (err) throw err;
       res.status(200).json(result);
     });
@@ -61,8 +61,8 @@ app.delete('/deleteProduct/:id', (req, res) => {
 });
 
 app.put('/updateProduct/:id', (req, res) => {
-    let sql = 'UPDATE product SET name = ?, description = ?, price = ? WHERE productID = ?';
-    db.query(sql, [req.body.name, req.body.description, req.body.price, req.params.id], (err, result) => {
+    let sql = 'UPDATE product SET name = ?, description = ?, price = ?, quantity = ? WHERE productID = ?';
+    db.query(sql, [req.body.name, req.body.description, req.body.price, req.body.quantity, req.params.id], (err, result) => {
       if (err) throw err;
       res.status(200).json(result);
     });
