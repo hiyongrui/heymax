@@ -9,7 +9,7 @@ npm run dev
 ```
 
 
-# client react running on port 8000
+# server nodejs running on port 8000
 ```
 cd server
 npm run dev
