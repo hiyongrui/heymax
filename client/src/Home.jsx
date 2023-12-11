@@ -7,7 +7,11 @@ const Home = () => {
 
   const goToThisUser = (user) => {
     localStorage.setItem("userData", JSON.stringify(user));
-    navigate("/admin");
+    if (user.role == "User") {
+      navigate("/user");
+    } else {
+      navigate("/admin");
+    }
   };
 
   const [users, setUsers] = useState([]);

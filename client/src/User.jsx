@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Fab, Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
-import CreateIcon from "@mui/icons-material/Create";
+import { Fab, Box, Typography, Card, CardContent, CardActions, Button, TextField, Snackbar, Alert } from "@mui/material";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { useEffect, useState } from "react";
 import { red } from "@mui/material/colors";
 
-const Admin = () => {
+const User = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -37,8 +38,34 @@ const Admin = () => {
       });
   };
 
-  const handleEdit = (id) => {
-    navigate(`/updateProduct/${id}`);
+  const handleAddToCart = (id, maxQuantity, price, name) => {
+    console.log("adding to cart product id..", id);
+
+    let cartData = JSON.parse(localStorage.getItem("cartData")) ?? [];
+    let product = cartData.find((product) => product.productID === id);
+
+    if (product) {
+      if (product.quantity >= maxQuantity) {
+        console.log("no more adding to cart, show max message");
+        setOpen(true);
+
+        return;
+      } else {
+        product.quantity += 1;
+      }
+    } else {
+      cartData.push({ productID: id, quantity: 1, price: price, name: name });
+    }
+
+    localStorage.setItem("cartData", JSON.stringify(cartData));
+    console.log("cart data ending", cartData);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -48,7 +75,8 @@ const Admin = () => {
           All products below
         </Typography>
 
-        {/* List of Product for Admin */}
+
+        {/* List of Product for User */}
         <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           {products.map((product) => (
             <Card key={product.productID} sx={{ minWidth: 275, margin: 2 }}>
@@ -65,11 +93,8 @@ const Admin = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => handleEdit(product.productID)}>
-                  Edit
-                </Button>
-                <Button size="small" sx={{ color: red[500] }} onClick={() => handleDelete(product.productID)}>
-                  Delete
+                <Button size="small" color="primary" onClick={() => handleAddToCart(product.productID, product.quantity, product.price, product.name)}>
+                  Add to cart
                 </Button>
               </CardActions>
             </Card>
@@ -77,9 +102,7 @@ const Admin = () => {
         </Box>
       </Box>
 
-
-    {/* Button top right */}
-      <Link to="/addProduct">
+      <Link to="/checkout">
         <Fab
           color="primary"
           variant="extended"
@@ -94,12 +117,18 @@ const Admin = () => {
             ":hover": { bgcolor: "#FFFFFF", color: "#525ffb" },
           }}
         >
-          <CreateIcon sx={{ mr: 1 }} />
-          Create product
+          <ShoppingCartCheckoutIcon sx={{ mr: 1 }} />
+          Check out
         </Fab>
       </Link>
+
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+        <Alert onClose={handleClose} severity="error">
+          This item have no more to checkout!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
 
-export default Admin;
+export default User;

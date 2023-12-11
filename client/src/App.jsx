@@ -4,15 +4,22 @@ import Home from "./Home";
 import Admin from "./Admin";
 import AddProduct from "./AddProduct";
 import UpdateProduct from "./UpdateProduct";
+import User from "./User";
+import Checkout from "./Checkout";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <header>
+        <Link to="/">Home</Link>
+      </header>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/user" element={<User />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/addProduct" element={<AddProduct />} />
         <Route path="/updateProduct/:id" element={<UpdateProduct />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
   );

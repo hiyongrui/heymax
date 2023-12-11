@@ -50,16 +50,16 @@ const AddProduct = () => {
     <form onSubmit={handleSubmit}>
       <Box textAlign="center">
         <h2>Enter Product details</h2>
-        <TextField label="Name" value={name} onChange={handleNameChange} />
+        <TextField label="Name" value={name} onChange={handleNameChange} margin="normal" />
         <br />
-        <TextField label="Price" type="number" value={price} onChange={handlePriceChange} />
+        <TextField label="Price" type="number" value={price} onChange={handlePriceChange} margin="normal" />
         <br />
-        <TextField label="Quantity" type="number" value={quantity} onChange={handleQuantityChange} />
+        <TextField label="Quantity" type="number" value={quantity} onChange={handleQuantityChange} margin="normal" />
         <br />
-        <TextField label="Description" value={description} onChange={handleDescriptionChange} multiline rows={4} />
+        <TextField label="Description" value={description} onChange={handleDescriptionChange} multiline rows={4} margin="normal" />
         <br />
 
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary" style={{ marginTop: "50px" }}>
           Add Product
         </Button>
       </Box>

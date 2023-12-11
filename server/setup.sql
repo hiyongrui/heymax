@@ -15,11 +15,19 @@ CREATE TABLE `product` (
 insert into product (name, description, price, quantity) values
 ("product first", "descrip of first", 80, 5), 
 ("product sec", "descrip of sec", 10, 3), 
-("product third", "descrip of third", 50, 10);
+("product third", "descrip of third", 100, 6), 
+("product fourth", "descrip of four", 50, 9), 
+("product five", "descrip of five", 40, 3), 
+("product six", "descrip of six", 60, 5), 
+("product seven", "descrip of seven", 80, 3),
+("product eight", "descrip of eight", 10, 2),
+("product nine", "descrip of nine", 20, 10),
+("product ten", "descrip of ten", 30, 20);
+
 
 select * from product;
 
-
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `userID` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -37,3 +45,16 @@ insert into user (name, address, email, phoneNumber, role) values
 ("mary", 'Company4', "mary@gmail.com", "91234568", "Admin");
 
 select * from user;
+
+DROP TABLE IF EXISTS `orderTable`;
+
+CREATE TABLE `orderTable` (
+  `orderID` int NOT NULL AUTO_INCREMENT,
+  `totalPrice` int NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `userID` int NOT NULL,
+  PRIMARY KEY (`orderID`),
+  FOREIGN KEY (`userID`) REFERENCES User(`userID`)
+);
+
+select * from orderTable;
