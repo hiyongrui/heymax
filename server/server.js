@@ -18,7 +18,7 @@ app.use(cors())
 
 
 // API
-app.get('/product', (req, res) => {
+app.get('/getAllProduct', (req, res) => {
     let sql = 'SELECT * FROM product';
     db.query(sql, (err, result) => {
       if (err) throw err;
