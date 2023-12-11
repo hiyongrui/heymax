@@ -26,6 +26,21 @@ app.get('/getAllProduct', (req, res) => {
     });
 });
 
+app.get('/getAllUser', (req, res) => {
+    let sql = 'SELECT * FROM user';
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
+});
+
+app.post('/addProduct', (req, res) => {
+    let sql = 'INSERT INTO product (name, description, price) VALUES (?, ?, ?)';
+    db.query(sql, [req.body.name, req.body.description, req.body.price], (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
+});
 
 app.listen(8000,()=>{
     console.log("Connect to backend port 8000.")
